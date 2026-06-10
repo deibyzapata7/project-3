@@ -1,5 +1,4 @@
-const URL_API = 'https://alertes-montreal-backend.onrender.com';
-
+const URL_API = 'https://alertes-montreal-backend.onrender.com/avis-alertes';
 
 function extraireArrondissement(titre) {
   const match = titre.match(/[Aa]rrondissement\s+(?:de\s+|d['']|du\s+)?([^,–-]+)/);
