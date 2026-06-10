@@ -1,4 +1,4 @@
-const URL_API = 'http://localhost:3000/avis-alertes';
+const URL_API = 'https://alertes-montreal-backend.onrender.com';
 
 
 function extraireArrondissement(titre) {

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+
+
 // Vérifier si l'utilisateur est déjà abonné au chargement
 export function useAbonnement() {
   const [estAbonne, setEstAbonne] = useState(false);
@@ -11,10 +13,13 @@ export function useAbonnement() {
       .then((sub) => setEstAbonne(sub !== null));
   }, []);
 
+
+
+
   // S'abonner aux notifications push
   async function sAbonner() {
     try {
-      const res = await fetch("http://localhost:3000/vapid-public-key");
+      const res = await fetch("https://alertes-montreal-backend.onrender.com/vapid-public-key");
       const { publicKey } = await res.json();
 
       const reg = await navigator.serviceWorker.ready;
@@ -25,7 +30,7 @@ export function useAbonnement() {
 
       setEstAbonne(true);
 
-      await fetch("http://localhost:3000/subscribe", {
+      await fetch("https://alertes-montreal-backend.onrender.com/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ subscription }),
@@ -35,6 +40,10 @@ export function useAbonnement() {
     }
   }
 
+
+
+
+
   // Se désabonner des notifications push
   async function seDesabonner() {
     try {
@@ -43,7 +52,7 @@ export function useAbonnement() {
 
       await subscription.unsubscribe();
 
-      await fetch("http://localhost:3000/unsubscribe", {
+      await fetch("https://alertes-montreal-backend.onrender.com/unsubscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ endpoint: subscription.endpoint }),
@@ -54,5 +63,7 @@ export function useAbonnement() {
     }
   }
 
+
+  
   return { estAbonne, erreur, sAbonner, seDesabonner };
 }
