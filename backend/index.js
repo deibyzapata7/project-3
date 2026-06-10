@@ -9,8 +9,9 @@ dotenv.config();
 
 // Connexion à Firebase avec les identifiants du compte de service
 initializeApp({
-  credential: cert(require('./firebase-key.json'))
+  credential: cert(JSON.parse(process.env.FIREBASE_CREDENTIALS))
 });
+
 const db = getFirestore();
 
 
