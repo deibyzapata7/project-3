@@ -35,9 +35,15 @@ export function useAbonnement() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ subscription }),
       });
-    } catch (err) {
-      setErreur(err.message);
-    }
+   } catch (err) {
+  if (err.name === 'NotAllowedError') {
+    setErreur('denied');
+  } else {
+    setErreur("Erreur lors de l'abonnement. Réessayez plus tard.");
+  }
+}
+
+
   }
 
 

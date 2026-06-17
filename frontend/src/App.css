@@ -419,3 +419,11 @@ a:hover { color: var(--vd-blue-500); text-decoration: underline; }
   color: red;
   font-size: 0.9rem;
 }
+
+.bandeau-hors-ligne {
+  background: #e53e3e;
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
