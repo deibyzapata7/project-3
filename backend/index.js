@@ -38,7 +38,8 @@ app.get('/avis-alertes', async (req, res) => {
   const json = await response.json();
   res.json({ data: json.result.records });
     } catch (error) {
-        res.status(500).json({ error: 'Erreur serveur' });
+  res.status(500).json({ error: true, message: 'Erreur serveur' });
+
     }
 });
 
@@ -65,6 +66,15 @@ app.get('/vapid-public-key', (req, res) => {
 app.post('/subscribe', async (req, res) => {
   try {
     const subscription = req.body.subscription;
+
+    const existing = await db.collection('subscriptions')
+      .where('endpoint', '==', subscription.endpoint)
+      .get();
+
+    if (!existing.empty) {
+      return res.status(200).json({ message: 'Déjà abonné' });
+    }
+
     await db.collection('subscriptions').add({
       endpoint: subscription.endpoint,
       keys: subscription.keys,
@@ -72,9 +82,10 @@ app.post('/subscribe', async (req, res) => {
     });
     res.status(201).json({ message: 'Abonné avec succès' });
   } catch (error) {
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: true, message: 'Erreur serveur' });
   }
 });
+
 
 
 
@@ -90,13 +101,14 @@ app.post('/unsubscribe', async (req, res) => {
 
 
   if (snapshot.empty) {
-  return res.status(404).json({ error: 'Abonnement non trouvé' });}
+  return res.status(404).json({ error: true, message: 'Abonnement non trouvé' });}
+
 
   snapshot.forEach(doc => doc.ref.delete());
   res.json({ message: 'Désabonné avec succès' });
 
   } catch (error) {
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: true, message: 'Erreur serveur' });
   }
 });
 
@@ -122,7 +134,7 @@ app.post('/send-notification', async (req, res) => {
     await Promise.all(envois);
     res.json({ message: 'Notifications envoyées' });
   } catch (error) {
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: true, message: 'Erreur serveur' });
   }
 });
 
