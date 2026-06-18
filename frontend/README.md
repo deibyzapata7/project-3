@@ -139,4 +139,4 @@ curl -X POST https://alertes-montreal-backend.onrender.com/send-notification \
 
 ## Score Lighthouse
 
-![Lighthouse](docs/lighthouse.png)
+[![Lighthouse](docs/lighthouse.png)](docs/lighthouse.png)
