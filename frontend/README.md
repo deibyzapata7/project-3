@@ -134,3 +134,9 @@ curl -X POST https://alertes-montreal-backend.onrender.com/send-notification \
 
 - **Frontend (Netlify) :** https://fanciful-mandazi-be93ab.netlify.app
 - **Backend (Render) :** https://alertes-montreal-backend.onrender.com
+
+---
+
+## Score Lighthouse
+
+![Lighthouse](docs/lighthouse.png)
